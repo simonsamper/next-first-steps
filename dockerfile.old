@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+# Aumentar memoria para evitar errores de compilación
+ENV NODE_OPTIONS=--max-old-space-size=6144
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
